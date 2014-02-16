@@ -1,12 +1,15 @@
 motion_require 'extensions'
 
-module Yapper; module Sync
+module Yapper::Sync
   motion_require 'sync/data'
   motion_require 'sync/event'
+  motion_require 'sync/attachable'
 
   extend MotionSupport::Concern
 
   included do
+    include Attachable
+
     field :_synced_at
 
     unless self.ancestors.include?(Yapper::Timestamps)
@@ -130,4 +133,4 @@ module Yapper; module Sync
       @instance.class.relations[:belongs_to].find { |r| r.find { |k,v| v[:embedded] } }.try(:keys).try(:first)
     end
   end
-end; end
+end

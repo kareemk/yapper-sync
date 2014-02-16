@@ -20,7 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'motion-support', '~> 0.2.4'
   gem.add_dependency 'motion-cocoapods', '~> 1.4.0'
   gem.add_dependency 'motion-logger', '~> 0.1.3'
-  gem.add_dependency 'yapper', '~> 0.0.1'
   gem.add_development_dependency 'motion-redgreen'
   gem.add_development_dependency 'webstub'
 end

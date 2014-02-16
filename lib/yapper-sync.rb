@@ -9,7 +9,6 @@ require 'motion-support/core_ext'
 require 'yapper'
 
 files = Dir.glob(File.expand_path('../../lib/yapper-sync/**/*.rb', __FILE__))
-puts "requiring #{files}"
 Motion::Require.all(files)
 
 Motion::Project::App.setup do |app|
