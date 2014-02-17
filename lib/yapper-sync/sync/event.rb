@@ -103,17 +103,20 @@ module Yapper::Sync
 
       model = Object.qualified_const_get(event['model'])
       instance = nil
-      if event['type'] == 'create'
-        instance = model.new(event['delta']) # XXX shouldn't need to pass in delta
-      else
-        instance = model.find(event['model_id'])
-      end
 
-      if instance
-        # XXX Return array of updates vs. overwriting entire object
-        Yapper::Sync.disabled { instance.update_attributes(event['delta']) }
-      else
-        Yapper::Log.error  "Model instance not found!. This is not good!"
+      Yapper::Sync.disabled do
+        if event['type'] == 'create'
+          instance = model.new(event['delta']) # XXX shouldn't need to pass in delta
+        else
+          instance = model.find(event['model_id'])
+        end
+
+        if instance
+          # XXX Return array of updates vs. overwriting entire object
+          Yapper::Sync.disabled { instance.update_attributes(event['delta']) }
+        else
+          Yapper::Log.error  "Model instance not found!. This is not good!"
+        end
       end
 
       instance
